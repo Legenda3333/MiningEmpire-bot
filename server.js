@@ -168,7 +168,7 @@ app.use('/tg', router);
 
 bot.launch({
     webhook: {
-        domain: 'https://mining-empire-backend.vercel.app/',
+        domain: 'https://mining-empire-bot.vercel.app/',
         port: 443,
     },
 });
