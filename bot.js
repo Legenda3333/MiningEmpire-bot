@@ -113,58 +113,6 @@ bot.on('pre_checkout_query', async (ctx) => {
     await ctx.answerPreCheckoutQuery(true);
 });
 
-// Функция для создания ссылки на инвойс
-async function generate_invoice(invoiceID) {
-    let titleText, prices;
-    let descriptionText = "Purchase for telegram stars";
-    let payload = { atribut: 'none' };
-    let providerToken = ""; 
-    let currency = "XTR";
-
-    if (invoiceID === "telegram_stars_daily_payment") {titleText = "Telegram Stars Daily Quest"; prices = [{ label: "Price Label", amount: 25 }]}
-
-    if (invoiceID === "miner1") {titleText = "Start Miner"; prices = [{ label: "Price Label", amount: 1 }]}
-    if (invoiceID === "miner2") {titleText = "Red Miner"; prices = [{ label: "Price Label", amount: 375 }]}
-    if (invoiceID === "miner3") {titleText = "LGC200"; prices = [{ label: "Price Label", amount: 500 }]}
-    if (invoiceID === "miner4") {titleText = "LGC450"; prices = [{ label: "Price Label", amount: 750 }]}
-    if (invoiceID === "miner5") {titleText = "LGC550"; prices = [{ label: "Price Label", amount: 1125 }]}
-    if (invoiceID === "miner6") {titleText = "T100"; prices = [{ label: "Price Label", amount: 1875 }]}
-    if (invoiceID === "miner7") {titleText = "T100 SUPER"; prices = [{ label: "Price Label", amount: 3000 }]}
-    if (invoiceID === "miner8") {titleText = "LGC800"; prices = [{ label: "Price Label", amount: 5000 }]}
-    if (invoiceID === "miner9") {titleText = "LGC900"; prices = [{ label: "Price Label", amount: 7500 }]}
-    if (invoiceID === "miner10") {titleText = "Neon Miner"; prices = [{ label: "Price Label", amount: 11250 }]}
-    if (invoiceID === "miner11") {titleText = "HGC-A1"; prices = [{ label: "Price Label", amount: 15625 }]}
-    if (invoiceID === "miner12") {titleText = "HGC-A2"; prices = [{ label: "Price Label", amount: 18750 }]}
-    if (invoiceID === "miner13") {titleText = "TMiner-V1"; prices = [{ label: "Price Label", amount: 25000 }]}
-    if (invoiceID === "miner14") {titleText = "RT S22"; prices = [{ label: "Price Label", amount: 30000 }]}
-    if (invoiceID === "miner15") {titleText = "TMiner-V2"; prices = [{ label: "Price Label", amount: 37500 }]}
-    if (invoiceID === "miner16") {titleText = "TMiner-V3"; prices = [{ label: "Price Label", amount: 50000 }]}
-
-    let obj = { title: titleText, description: descriptionText, payload: JSON.stringify(payload), provider_token: providerToken, currency: currency, prices: prices };
-    
-    let result = await bot.telegram.createInvoiceLink(obj);
-    return result;
-}
-
-// Контроллер для получения ссылки на инвойс
-class TgController {
-    async getInvoiceLink(req, res) {
-        const invoiceID = req.body.invoiceID;
-        let result = await generate_invoice(invoiceID);
-        if (result) {
-            res.json({ success: true, link: result });
-        } 
-    }
-}
-
-const tgController = new TgController();
-
-const router = express.Router();
-router.post('/getInvoiceLink', (req, res) => tgController.getInvoiceLink(req, res));
-
-app.use(express.json());
-app.use(cors());
-app.use('/tg', router);
 
 bot.launch({
     webhook: {
@@ -172,5 +120,4 @@ bot.launch({
         port: 443,
     },
 });
-
 
