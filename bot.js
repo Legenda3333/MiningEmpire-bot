@@ -6,14 +6,10 @@ import fetch from 'node-fetch';
 import dotenv from 'dotenv';
 dotenv.config();
 
-const app = express();
-const port = process.env.PORT || 8080;
+const bot = new Telegraf(process.env.TOKEN);
 
-const token = '7319758246:AAEC5rtlswvKAXQbzAg2A6hTQi18JgPTj60';
 //const webAppUrl = 'https://mining-empire-game.web.app';
 const webAppUrl = 'https://inquisitive-flan-7aa527.netlify.app/';
-
-const bot = new Telegraf(token);
 
 const SUPABASE_URL = 'https://jcynommzpdlnwdahfwdw.supabase.co';
 const SUPABASE_API_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpjeW5vbW16cGRsbndkYWhmd2R3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzAzNzgwODksImV4cCI6MjA0NTk1NDA4OX0.fzDinYOvphGxNEi4qkvYo4lCv9yPf6_XqdCD28iQd_U';
@@ -113,7 +109,7 @@ bot.on('pre_checkout_query', async (ctx) => {
     await ctx.answerPreCheckoutQuery(true);
 });
 
-
+//bot.launch();
 bot.launch({
     webhook: {
         domain: 'https://mining-empire-bot.vercel.app/',
