@@ -9,7 +9,7 @@ dotenv.config();
 const app = express();
 const port = process.env.PORT || 8080;
 
-const token = '7319758246:AAGam-VqfuaKwM2ys_CqNe0gjqYyGdviTlc';
+const token = '7319758246:AAEC5rtlswvKAXQbzAg2A6hTQi18JgPTj60';
 //const webAppUrl = 'https://mining-empire-game.web.app';
 const webAppUrl = 'https://inquisitive-flan-7aa527.netlify.app/';
 
