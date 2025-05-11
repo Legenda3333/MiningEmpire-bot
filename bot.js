@@ -32,7 +32,7 @@ bot.start(async (ctx) => {
     const { data: existingUser } = await database
         .from('users')
         .select('*')
-        .eq('telegram', id);
+        .eq('telegram_id', id);
 
     const LoginUser = async (id, first_name, last_name, username, language_code, is_premium, referal_id) => {
         const time_reg = Math.floor(Date.now() / 1000);
@@ -68,7 +68,7 @@ bot.start(async (ctx) => {
                 await database
                 .from('users')
                 .update({ avatar_url })
-                .eq('telegram', id);
+                .eq('telegram_id', id);
             }
         }
     };
