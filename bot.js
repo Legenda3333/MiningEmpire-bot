@@ -21,9 +21,9 @@ async function isImageAvailable(url) {
 }
 
 bot.start(async (ctx) => {
-    const referal_id = ctx.startPayload;
+    const referral_ID = ctx.startPayload;
     const id = ctx.from.id;
-    const first_name = ctx.from.first_name || '';
+    const firstName = ctx.from.first_name || '';
     const last_name = ctx.from.last_name || '';
     const username = ctx.from.username || '';
     const language_code = ctx.from.language_code || '';
@@ -34,7 +34,7 @@ bot.start(async (ctx) => {
         .select('*')
         .eq('telegramID', id);
 
-    const LoginUser = async (id, first_name, last_name, username, language_code, is_premium, referal_id) => {
+    const LoginUser = async (id, firstName, last_name, username, language_code, is_premium, referral_ID) => {
         const time_reg = Math.floor(Date.now() / 1000);
 
         // Проверяем, существует ли уже пользователь с данным telegram id и если пользователь не найден, добавляем его
@@ -45,9 +45,9 @@ bot.start(async (ctx) => {
                 ? await ctx.telegram.getFileLink(profilePhotos.photos[0][0].file_id)
                 : undefined_avatar;
 
-            const userData = referal_id !== "" && Number(referal_id) !== id
-                ? { telegram: id, avatar_url: avatar_url, first_name: first_name, last_name: last_name, username: username, language: language_code, is_premium: is_premium, time_reg: time_reg, referal_id: referal_id }
-                : { telegram: id, avatar_url: avatar_url, first_name: first_name, last_name: last_name, username: username, language: language_code, is_premium: is_premium, time_reg: time_reg };
+            const userData = referral_ID !== "" && Number(referral_ID) !== id
+                ? { telegram: id, avatar_url: avatar_url, firstName: firstName, last_name: last_name, username: username, language: language_code, is_premium: is_premium, time_reg: time_reg, referral_ID: referral_ID }
+                : { telegram: id, avatar_url: avatar_url, firstName: firstName, last_name: last_name, username: username, language: language_code, is_premium: is_premium, time_reg: time_reg };
 
             await database
                 .from('users')
@@ -73,7 +73,7 @@ bot.start(async (ctx) => {
         }
     };
 
-    await LoginUser(id, first_name, last_name, username, language_code, is_premium, referal_id);
+    await LoginUser(id, firstName, last_name, username, language_code, is_premium, referral_ID);
 
     ctx.replyWithHTML(
         '👋 <b>Привет! Добро пожаловать в MiningEmpire!</b> 🚀\n' +
