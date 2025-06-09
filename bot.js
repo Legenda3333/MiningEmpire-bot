@@ -26,54 +26,54 @@ bot.start(async (ctx) => {
     const firstName = ctx.from.first_name || '';
     const lastName = ctx.from.last_name || '';
     const username = ctx.from.username || '';
-    const language_code = ctx.from.language_code || '';
-    const is_premium = ctx.from.is_premium || false; 
+    const languageCode = ctx.from.language_code || '';
+    const isPremium = ctx.from.is_premium || false; 
 
     const { data: existingUser } = await database
         .from('users')
         .select('*')
         .eq('telegramID', id);
 
-    const LoginUser = async (id, firstName, lastName, username, language_code, is_premium, referral_ID) => {
+    const LoginUser = async (id, firstName, lastName, username, languageCode, isPremium, referral_ID) => {
         const time_reg = Math.floor(Date.now() / 1000);
 
         // Проверяем, существует ли уже пользователь с данным telegram id и если пользователь не найден, добавляем его
         if (existingUser.length === 0) {
-            const undefined_avatar = 'images/undefined_avatar.png';
+            const undefined_profilePicture = 'images/undefined_profilePicture.png';
             const profilePhotos = await ctx.telegram.getUserProfilePhotos(id);
-            const avatar_url = profilePhotos.total_count > 0 
+            const profilePicture_url = profilePhotos.total_count > 0 
                 ? await ctx.telegram.getFileLink(profilePhotos.photos[0][0].file_id)
-                : undefined_avatar;
+                : undefined_profilePicture;
 
             const userData = referral_ID !== "" && Number(referral_ID) !== id
-                ? { telegram: id, avatar_url: avatar_url, firstName: firstName, lastName: lastName, username: username, language: language_code, is_premium: is_premium, time_reg: time_reg, referral_ID: referral_ID }
-                : { telegram: id, avatar_url: avatar_url, firstName: firstName, lastName: lastName, username: username, language: language_code, is_premium: is_premium, time_reg: time_reg };
+                ? { telegram: id, profilePicture_url: profilePicture_url, firstName: firstName, lastName: lastName, username: username, languageCode: languageCode, isPremium: isPremium, time_reg: time_reg, referral_ID: referral_ID }
+                : { telegram: id, profilePicture_url: profilePicture_url, firstName: firstName, lastName: lastName, username: username, languageCode: languageCode, isPremium: isPremium, time_reg: time_reg };
 
             await database
                 .from('users')
                 .insert([userData]);
         } else {
             // Проверяем доступность аватарки по ссылке из базы данных
-            const currentAvatarUrl = existingUser[0].avatar_url;
-            const isCurrentAvatarAvailable = await isImageAvailable(currentAvatarUrl);
+            const currentprofilePictureUrl = existingUser[0].profilePicture_url;
+            const isCurrentprofilePictureAvailable = await isImageAvailable(currentprofilePictureUrl);
 
             //Если аватарка недоступна, то заменяем её на новую
-            if (!isCurrentAvatarAvailable) {
-                const undefined_avatar = 'images/undefined_avatar.png';
+            if (!isCurrentprofilePictureAvailable) {
+                const undefined_profilePicture = 'images/undefined_profilePicture.png';
                 const profilePhotos = await ctx.telegram.getUserProfilePhotos(id);
-                const avatar_url = profilePhotos.total_count > 0 
+                const profilePicture_url = profilePhotos.total_count > 0 
                     ? await ctx.telegram.getFileLink(profilePhotos.photos[0][0].file_id)
-                    : undefined_avatar;
+                    : undefined_profilePicture;
 
                 await database
                 .from('users')
-                .update({ avatar_url })
+                .update({ profilePicture_url })
                 .eq('telegramID', id);
             }
         }
     };
 
-    await LoginUser(id, firstName, lastName, username, language_code, is_premium, referral_ID);
+    await LoginUser(id, firstName, lastName, username, languageCode, isPremium, referral_ID);
 
     ctx.replyWithHTML(
         '👋 <b>Привет! Добро пожаловать в MiningEmpire!</b> 🚀\n' +
