@@ -41,33 +41,33 @@ bot.start(async (ctx) => {
         if (existingUser.length === 0) {
             const undefined_profilePicture = 'images/undefined_profilePicture.png';
             const profilePhotos = await ctx.telegram.getUserProfilePhotos(id);
-            const profilePicture_url = profilePhotos.total_count > 0 
+            const profilePicture = profilePhotos.total_count > 0 
                 ? await ctx.telegram.getFileLink(profilePhotos.photos[0][0].file_id)
                 : undefined_profilePicture;
 
             const userData = referral_ID !== "" && Number(referral_ID) !== id
-                ? { telegram: id, profilePicture_url: profilePicture_url, firstName: firstName, lastName: lastName, username: username, languageCode: languageCode, isPremium: isPremium, time_reg: time_reg, referral_ID: referral_ID }
-                : { telegram: id, profilePicture_url: profilePicture_url, firstName: firstName, lastName: lastName, username: username, languageCode: languageCode, isPremium: isPremium, time_reg: time_reg };
+                ? { telegram: id, profilePicture: profilePicture, firstName: firstName, lastName: lastName, username: username, languageCode: languageCode, isPremium: isPremium, time_reg: time_reg, referral_ID: referral_ID }
+                : { telegram: id, profilePicture: profilePicture, firstName: firstName, lastName: lastName, username: username, languageCode: languageCode, isPremium: isPremium, time_reg: time_reg };
 
             await database
                 .from('users')
                 .insert([userData]);
         } else {
             // Проверяем доступность аватарки по ссылке из базы данных
-            const currentprofilePictureUrl = existingUser[0].profilePicture_url;
+            const currentprofilePictureUrl = existingUser[0].profilePicture;
             const isCurrentprofilePictureAvailable = await isImageAvailable(currentprofilePictureUrl);
 
             //Если аватарка недоступна, то заменяем её на новую
             if (!isCurrentprofilePictureAvailable) {
                 const undefined_profilePicture = 'images/undefined_profilePicture.png';
                 const profilePhotos = await ctx.telegram.getUserProfilePhotos(id);
-                const profilePicture_url = profilePhotos.total_count > 0 
+                const profilePicture = profilePhotos.total_count > 0 
                     ? await ctx.telegram.getFileLink(profilePhotos.photos[0][0].file_id)
                     : undefined_profilePicture;
 
                 await database
                 .from('users')
-                .update({ profilePicture_url })
+                .update({ profilePicture })
                 .eq('telegramID', id);
             }
         }
