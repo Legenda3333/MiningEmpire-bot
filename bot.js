@@ -67,7 +67,7 @@ bot.start(async (ctx) => {
 
                 await database
                 .from('users')
-                .update({ profilePicture })
+                .update({ profilePicture: profilePicture })
                 .eq('telegramID', id);
             }
         }
