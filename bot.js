@@ -35,7 +35,7 @@ bot.start(async (ctx) => {
         .eq('telegramID', id);
 
     const LoginUser = async (id, firstName, lastName, username, languageCode, isPremium, referral_ID) => {
-        const time_reg = Math.floor(Date.now() / 1000);
+        const registrationTime = Math.floor(Date.now() / 1000);
 
         // Проверяем, существует ли уже пользователь с данным telegram id и если пользователь не найден, добавляем его
         if (existingUser.length === 0) {
@@ -46,8 +46,8 @@ bot.start(async (ctx) => {
                 : undefined_profilePicture;
 
             const userData = referral_ID !== "" && Number(referral_ID) !== id
-                ? { telegram: id, profilePicture: profilePicture, firstName: firstName, lastName: lastName, username: username, languageCode: languageCode, isPremium: isPremium, time_reg: time_reg, referral_ID: referral_ID }
-                : { telegram: id, profilePicture: profilePicture, firstName: firstName, lastName: lastName, username: username, languageCode: languageCode, isPremium: isPremium, time_reg: time_reg };
+                ? { telegram: id, profilePicture: profilePicture, firstName: firstName, lastName: lastName, username: username, languageCode: languageCode, isPremium: isPremium, registrationTime: registrationTime, referral_ID: referral_ID }
+                : { telegram: id, profilePicture: profilePicture, firstName: firstName, lastName: lastName, username: username, languageCode: languageCode, isPremium: isPremium, registrationTime: registrationTime };
 
             await database
                 .from('users')
