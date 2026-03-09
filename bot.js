@@ -8,19 +8,17 @@ const bot = new Telegraf(process.env.TOKEN);
 
 
 bot.start(async (ctx) => {
-    // Используем replyWithPhoto и передаем caption (подпись к фото) с кнопками
-    await ctx.replyWithPhoto(
-        { url: 'https://raw.githubusercontent.com/Legenda3333/MiningEmpire-frontend/main/images/start_image.png' },
+    // Отправляем ссылку на фото, которое будет отображаться как preview
+    await ctx.replyWithHTML(
+        '<a href="https://raw.githubusercontent.com/Legenda3333/MiningEmpire-frontend/main/images/start_image.png">‌</a>' +
+        '👋 <b>Добро пожаловать в MiningEmpire!</b> 🚀\n\n' +
+        '⚡ Увеличивай майнинговую мощность\n' +
+        '🏆 Выполняй задания\n' +
+        '👥 Приглашай друзей\n\n' +
+        '⛏ Добывай будущие токены проекта прямо в Telegram.\n\n' +
+        '🔥 Начни строить свою майнинговую империю уже сейчас и получи шанс стать одним из первых обладателей <b>$MINE</b>!\n\n' +
+        '<b>Готов начать?</b>',
         {
-            caption: 
-                '👋 <b>Добро пожаловать в MiningEmpire!</b> 🚀\n\n' +
-                '⚡ Увеличивай майнинговую мощность\n' +
-                '🏆 Выполняй задания\n' +
-                '👥 Приглашай друзей\n\n' +
-                '⛏ Добывай будущие токены проекта прямо в Telegram.\n\n' +
-                '🔥 Начни строить свою майнинговую империю уже сейчас и получи шанс стать одним из первых обладателей <b>$MINE</b>!\n\n' +
-                '<b>Готов начать?</b>',
-            parse_mode: 'HTML',
             reply_markup: Markup.inlineKeyboard([
                 [Markup.button.webApp('⛏️ Начать', process.env.FRONTEND_URL)],
                 [Markup.button.url('📢 Официальный канал', process.env.CHANNEL)]
