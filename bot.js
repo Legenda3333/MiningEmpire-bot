@@ -9,7 +9,7 @@ const bot = new Telegraf(process.env.TOKEN);
 
 bot.start(async (ctx) => {
     await ctx.replyWithPhoto(
-        'public/start_image.png', 
+        'https://raw.githubusercontent.com/Legenda3333/MiningEmpire-frontend/main/images/start_image.png', 
         {
             caption: '👋 <b>Добро пожаловать в MiningEmpire!</b> 🚀\n\n' +
                      '⚡ Увеличивай майнинговую мощность\n' +
