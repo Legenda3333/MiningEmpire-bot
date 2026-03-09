@@ -26,15 +26,17 @@ bot.start(async (ctx) => {
             ])
         }
     );
-});
 
-await ctx.reply(
-  '‎', // невидимый символ
+    await ctx.reply(
+  '123',
   Markup.inlineKeyboard([
     [Markup.button.webApp('⛏️ Начать', process.env.FRONTEND_URL)],
     [Markup.button.url('📢 Официальный канал', process.env.CHANNEL)]
   ])
 );
+
+});
+
 
 // Обработка покупки
 bot.on('pre_checkout_query', async (ctx) => {
