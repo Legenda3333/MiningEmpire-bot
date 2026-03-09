@@ -23,6 +23,10 @@ bot.start(async (ctx) => {
     );
 });
 
+await ctx.replyWithPhoto(
+  'https://raw.githubusercontent.com/Legenda3333/MiningEmpire-frontend/main/images/start_image.png'
+);
+
 // Обработка покупки
 bot.on('pre_checkout_query', async (ctx) => {
     await ctx.answerPreCheckoutQuery(true);
