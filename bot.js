@@ -6,30 +6,41 @@ const bot = new Telegraf(process.env.TOKEN);
 //const webAppUrl = 'https://mining-empire-game.web.app';
 
 
-await ctx.reply(
-  '👋 <b>Добро пожаловать в MiningEmpire!</b> 🚀\n\n' +
-  '⚡ Увеличивай майнинговую мощность\n' +
-  '🏆 Выполняй задания\n' +
-  '👥 Приглашай друзей\n\n' +
-  '⛏ Добывай будущие токены проекта прямо в Telegram.\n\n' +
-  '🔥 Начни строить свою майнинговую империю уже сейчас и получи шанс стать одним из первых обладателей <b>$MINE</b>!\n\n' +
-  '<b>Готов начать?</b>',
-  {
-    parse_mode: 'HTML',
-    reply_markup: Markup.inlineKeyboard([
-      [
-        Markup.button.webApp('⛏️ Начать', process.env.FRONTEND_URL),
-        Markup.button.url('📢 Официальный канал', process.env.CHANNEL)
-      ]
-    ])
-  }
-);
+bot.start(async (ctx) => {
+    await ctx.replyWithPhoto(
+        'https://raw.githubusercontent.com/Legenda3333/MiningEmpire-frontend/main/images/start_image.png', 
+        {
+            caption: '👋 <b>Добро пожаловать в MiningEmpire!</b> 🚀\n\n' +
+                     '⚡ Увеличивай майнинговую мощность\n' +
+                     '🏆 Выполняй задания\n' +
+                     '👥 Приглашай друзей\n\n' +
+                     '⛏ Добывай будущие токены проекта прямо в Telegram.\n\n' +
+                     '🔥 Начни строить свою майнинговую империю уже сейчас и получи шанс стать одним из первых обладателей <b>$MINE</b>!\n\n' +
+                     '<b>Готов начать?</b>',
+            parse_mode: 'HTML',
+            reply_markup: Markup.inlineKeyboard([
+                [Markup.button.webApp('⛏️ Начать', process.env.FRONTEND_URL)],
+                [Markup.button.url('📢 Официальный канал', process.env.CHANNEL)]
+            ])
+        }
+    );
+});
 
-// Потом отправляем картинку
-await ctx.replyWithPhoto(
-  'https://raw.githubusercontent.com/Legenda3333/MiningEmpire-frontend/main/images/start_image.png'
-);
-
+bot.start(async (ctx) => {
+    ctx.replyWithHTML(
+        '👋 <b>Добро пожаловать в MiningEmpire!</b> 🚀\n\n' +
+            '⚡ Увеличивай майнинговую мощность\n' +
+            '🏆 Выполняй задания\n' +
+            '👥 Приглашай друзей\n\n' +
+            '⛏ Добывай будущие токены проекта прямо в Telegram.\n\n' +
+            '🔥 Начни строить свою майнинговую империю уже сейчас и получи шанс стать одним из первых обладателей <b>$MINE</b>!\n\n' +
+            '<b>Готов начать?</b>',
+        Markup.inlineKeyboard([
+            [Markup.button.webApp('⛏️ Начать', process.env.FRONTEND_URL)],
+            [Markup.button.url('📢 Официальный канал', process.env.CHANNEL)]
+        ])
+    );
+});
 
 // Обработка покупки
 bot.on('pre_checkout_query', async (ctx) => {
