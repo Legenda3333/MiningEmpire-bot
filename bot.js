@@ -5,7 +5,7 @@ dotenv.config();
 const bot = new Telegraf(process.env.TOKEN);
 //const webAppUrl = 'https://mining-empire-game.web.app';
 
-//const { Markup } = require('telegraf');
+const { Markup } = require('telegraf');
 
 bot.start(async (ctx) => {
     await ctx.replyWithPhoto(
