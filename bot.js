@@ -9,7 +9,7 @@ const bot = new Telegraf(process.env.TOKEN);
 
 bot.start(async (ctx) => {
     await ctx.replyWithPhoto(
-        'https://mining-empire-bot.vercel.app/start_image.png', 
+        'public/start_image.png', 
         {
             caption: '👋 <b>Добро пожаловать в MiningEmpire!</b> 🚀\n\n' +
                      '⚡ Увеличивай майнинговую мощность\n' +
