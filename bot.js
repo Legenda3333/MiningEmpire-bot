@@ -28,7 +28,7 @@ bot.start(async (ctx) => {
     );
 
     await ctx.reply(
-  '123',
+  '‎', // невидимый символ
   Markup.inlineKeyboard([
     [Markup.button.webApp('⛏️ Начать', process.env.FRONTEND_URL)],
     [Markup.button.url('📢 Официальный канал', process.env.CHANNEL)]
