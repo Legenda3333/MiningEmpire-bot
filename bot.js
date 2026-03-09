@@ -21,11 +21,8 @@ bot.start(async (ctx) => {
             [Markup.button.url('📢 Официальный канал', process.env.CHANNEL)]
         ])
     );
+    await ctx.replyWithPhoto('https://raw.githubusercontent.com/Legenda3333/MiningEmpire-frontend/main/images/start_image.png');
 });
-
-await ctx.replyWithPhoto(
-  'https://raw.githubusercontent.com/Legenda3333/MiningEmpire-frontend/main/images/start_image.png'
-);
 
 // Обработка покупки
 bot.on('pre_checkout_query', async (ctx) => {
