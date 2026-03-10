@@ -6,7 +6,6 @@ const bot = new Telegraf(process.env.TOKEN);
 //const webAppUrl = 'https://mining-empire-game.web.app';
 
 
-
 bot.start(async (ctx) => {
   await ctx.replyWithPhoto(
     process.env.START_IMAGE_URL,
@@ -35,7 +34,7 @@ bot.on('pre_checkout_query', async (ctx) => {
 });
 
 
-//
+// Запуск бота
 bot.launch({
     webhook: {
         domain: process.env.BACKEND_URL,
